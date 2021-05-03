@@ -4,31 +4,28 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
-use Illuminate\Http\Request;
+use App\Services\CategoryService;
 
 class CategoryController extends Controller
 {
+    /**
+     * @var CategoryService
+     */
+    private $categoryService;
+
+    public function __construct(CategoryService $categoryService)
+    {
+        $this->categoryService = $categoryService;
+    }
+
     public function index()
     {
-        return  Category::orderBy('title')->get();
+        return  $this->categoryService->getAllCategories();
     }
 
-    public function show($id)
-    {
-        $category = Category::find($id);
-
-        if (!$category) {
-            return response()->json([
-                'status' => false,
-                'message' => 'Category not found',
-             ])->setStatusCode(404);
-        }
-
-        return $category;
-    }
 
     public function getImagesByCategoryId($id)
     {
-        return Category::with('images')->find($id);
+        return $this->categoryService->getImagesByCategoryId($id);
     }
 }

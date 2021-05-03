@@ -1955,6 +1955,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 //
 //
 //
@@ -2001,14 +2003,51 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
       links: [{
         title: 'Home',
         href: '/'
-      }]
+      }],
+      name: false
     };
+  },
+  mounted: function mounted() {
+    this.setName();
+  },
+  methods: {
+    setName: function setName() {
+      if (null != this.$userName) {
+        this.name = this.$userName;
+      }
+    },
+    handleLogout: function handleLogout() {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post('/logout').then(function () {
+        return location.href = '/';
+      });
+    }
   }
 });
 
@@ -2148,7 +2187,6 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       axios__WEBPACK_IMPORTED_MODULE_1___default().get('/api/category/' + id).then(function (response) {
-        console.log(response.data);
         _this.category = response.data;
         _this.loading = false;
       })["catch"](function (error) {
@@ -2428,6 +2466,7 @@ Vue.component('v-header', __webpack_require__(/*! ./components/Header.vue */ "./
 Vue.component('v-footer', __webpack_require__(/*! ./components/Footer.vue */ "./resources/js/components/Footer.vue").default);
 Vue.prototype.$userId = document.querySelector("meta[name='user-id']").getAttribute('content');
 Vue.prototype.$userRoles = userRolesValue ? JSON.parse(userRolesValue) : null;
+Vue.prototype.$userName = document.querySelector("meta[name='user-name']").getAttribute('content');
 
 var app = new Vue({
   el: '#app',
@@ -38876,7 +38915,7 @@ var staticRenderFns = [
           { staticClass: "row align-items-center justify-content-center" },
           [
             _c("div", { staticClass: "col-lg-4" }, [
-              _vm._v("Copyright © MfSotck 2021")
+              _vm._v("Copyright © MfStock 2021")
             ])
           ]
         )
@@ -38968,37 +39007,130 @@ var render = function() {
           ),
           _vm._v(" "),
           _c("div", { staticClass: "collapse navbar-collapse" }, [
-            _c(
-              "ul",
-              { staticClass: "navbar-nav text-uppercase ml-auto" },
-              _vm._l(_vm.links, function(link) {
-                return _c(
-                  "li",
-                  { staticClass: "nav-item" },
+            _vm.name
+              ? _c(
+                  "ul",
+                  { staticClass: "navbar-nav text-uppercase ml-auto" },
                   [
-                    _c(
-                      "router-link",
-                      {
-                        staticClass: "nav-link js-scroll-trigger",
-                        attrs: { to: link.href }
-                      },
-                      [_vm._v(_vm._s(link.title))]
-                    )
+                    _vm._l(_vm.links, function(link) {
+                      return _c(
+                        "li",
+                        { staticClass: "nav-item" },
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "nav-link js-scroll-trigger",
+                              attrs: { to: link.href }
+                            },
+                            [_vm._v(_vm._s(link.title))]
+                          )
+                        ],
+                        1
+                      )
+                    }),
+                    _vm._v(" "),
+                    _c("li", { staticClass: "nav-item" }, [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "nav-link js-scroll-trigger",
+                          attrs: { href: "/admin" }
+                        },
+                        [_vm._v(_vm._s(_vm.name))]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c("li", { staticClass: "nav-item" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass:
+                            "nav-link js-scroll-trigger btn btn-link text-uppercase",
+                          attrs: { type: "submit" },
+                          on: {
+                            click: function($event) {
+                              return _vm.handleLogout()
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n                            Logout\n                        "
+                          )
+                        ]
+                      )
+                    ])
                   ],
-                  1
+                  2
                 )
-              }),
-              0
-            )
+              : _c(
+                  "ul",
+                  { staticClass: "navbar-nav text-uppercase ml-auto" },
+                  [
+                    _vm._l(_vm.links, function(link) {
+                      return _c(
+                        "li",
+                        { staticClass: "nav-item" },
+                        [
+                          _c(
+                            "router-link",
+                            {
+                              staticClass: "nav-link js-scroll-trigger",
+                              attrs: { to: link.href }
+                            },
+                            [_vm._v(_vm._s(link.title))]
+                          )
+                        ],
+                        1
+                      )
+                    }),
+                    _vm._v(" "),
+                    _vm._m(0),
+                    _vm._v(" "),
+                    _vm._m(1)
+                  ],
+                  2
+                )
           ])
         ])
       ]
     ),
     _vm._v(" "),
-    _vm._m(0)
+    _vm._m(2)
   ])
 }
 var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "nav-item" }, [
+      _c(
+        "a",
+        {
+          staticClass: "nav-link js-scroll-trigger",
+          attrs: { href: "/login" }
+        },
+        [_vm._v("Login")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("li", { staticClass: "nav-item" }, [
+      _c(
+        "a",
+        {
+          staticClass: "nav-link js-scroll-trigger",
+          attrs: { href: "/register" }
+        },
+        [_vm._v("Register")]
+      )
+    ])
+  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

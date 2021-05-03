@@ -32,6 +32,11 @@ class CategoryService
         return $this->categoryRepository->getAllCategories();
     }
 
+    public function getImagesByCategoryId(int $id)
+    {
+        return Category::with('images')->find($id);
+    }
+
     /**
      * @param CategoryRequest $request
      */

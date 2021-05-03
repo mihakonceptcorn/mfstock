@@ -4,25 +4,25 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Image;
-use Illuminate\Http\Request;
+use App\Services\ImageService;
 
 class ImageController extends Controller
 {
-    public function getImagesByCategoryId($id)
+    /**
+     * @var ImageService
+     */
+    private $imageService;
+
+    public function __construct(ImageService $imageService)
     {
-        return Image::where('category_id', $id)->orderBy('created_at', 'DESC')->get();
+        $this->imageService = $imageService;
     }
 
-    public function getImagesByContributorId($id)
-    {
-        return Image::with('user')
-            ->where('user_id', $id)
-            ->orderBy('created_at', 'DESC')
-            ->get();
-        //return Image::where('user_id', $id)->orderBy('created_at', 'DESC')->get();
-    }
-
-    public function getImageById($id) {
-        return Image::with('user')->find($id);
+    /**
+     * @param int $id
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null
+     */
+    public function getImageById(int $id) {
+        return $this->imageService->getImageById($id);
     }
 }

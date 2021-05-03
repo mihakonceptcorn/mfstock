@@ -34,7 +34,6 @@
             loadImagesByCategoryId(id) {
                 axios.get('/api/category/' + id)
                 .then(response => {
-                    console.log(response.data);
                     this.category = response.data;
                     this.loading = false;
                 })

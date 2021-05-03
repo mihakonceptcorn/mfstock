@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="user-id" content="{{ auth()->user() ? auth()->user()->id : null }}">
     <meta name="user-roles" content="{{ auth()->user() ? json_encode(auth()->user()->getRoleNames()) : null }}">
+    <meta name="user-name" content="{{ auth()->user() ? auth()->user()->name : null }}">
     <link rel="stylesheet" href="/css/styles.css">
     <title>MfStock</title>
 </head>

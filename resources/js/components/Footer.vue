@@ -33,7 +33,7 @@
         <footer class="footer py-4">
             <div class="container">
                 <div class="row align-items-center justify-content-center">
-                    <div class="col-lg-4">Copyright © MfSotck 2021</div>
+                    <div class="col-lg-4">Copyright © MfStock 2021</div>
                 </div>
             </div>
         </footer>

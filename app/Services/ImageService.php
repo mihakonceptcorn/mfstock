@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Http\Requests\ImageRequest;
 use App\Models\Image;
+use App\Models\User;
 use App\Repositories\ImageRepository;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -61,6 +62,15 @@ class ImageService
     }
 
     /**
+     * @param int $id
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null
+     */
+    public function getImagesByContributorId(int $id)
+    {
+        return User::with('images')->find($id);
+    }
+
+    /**
      * @param ImageRequest $request
      */
     public function createImage(ImageRequest $request)
@@ -86,5 +96,14 @@ class ImageService
     {
         $image->status = 'declined';
         $image->save();
+    }
+
+    /**
+     * @param int $id
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null
+     */
+    public function getImageById(int $id)
+    {
+        return Image::with('user')->find($id);
     }
 }

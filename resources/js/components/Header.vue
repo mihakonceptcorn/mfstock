@@ -21,9 +21,29 @@
                     </svg>
                 </button>
                 <div class="collapse navbar-collapse">
-                    <ul class="navbar-nav text-uppercase ml-auto">
+                    <ul class="navbar-nav text-uppercase ml-auto" v-if="name">
                         <li class="nav-item" v-for="link in links">
                             <router-link class="nav-link js-scroll-trigger" :to="link.href">{{ link.title }}</router-link>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="/admin">{{ name }}</a>
+                        </li>
+                        <li class="nav-item">
+                            <button type="submit" class="nav-link js-scroll-trigger btn btn-link text-uppercase"
+                                    v-on:click="handleLogout()">
+                                Logout
+                            </button>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav text-uppercase ml-auto" v-else>
+                        <li class="nav-item" v-for="link in links">
+                            <router-link class="nav-link js-scroll-trigger" :to="link.href">{{ link.title }}</router-link>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="/login">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger" href="/register">Register</a>
                         </li>
                     </ul>
                 </div>
@@ -45,6 +65,8 @@
 </template>
 
 <script>
+    import axios from "axios";
+
     export default {
         data() {
             return {
@@ -52,8 +74,24 @@
                     {
                         title: 'Home',
                         href: '/'
-                    }
-                ]
+                    },
+                ],
+                name: false
+            }
+        },
+        mounted() {
+            this.setName();
+        },
+        methods: {
+            setName() {
+                if (null != this.$userName)
+                {
+                    this.name = this.$userName;
+                }
+            },
+            handleLogout() {
+                axios.post('/logout')
+                    .then(() => location.href = '/')
             }
         }
     }
