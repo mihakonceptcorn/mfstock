@@ -10472,7 +10472,9 @@ section#contact form#contactForm :-ms-input-placeholder {
   font-weight: 700;
   color: #ced4da;
 }
-
+.svg-inline--fa.fa-w-14 {
+    width: .875em;
+}
 .footer {
   text-align: center;
   font-size: 0.9rem;

@@ -34,7 +34,7 @@ class CategoryService
 
     public function getImagesByCategoryId(int $id)
     {
-        return Category::with('images')->find($id);
+        return Category::with('images')->orderByDesc('created_at')->find($id);
     }
 
     /**

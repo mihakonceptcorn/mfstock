@@ -5,7 +5,7 @@
                 <a class="navbar-brand js-scroll-trigger" href="/">
                     MfStock
                 </a>
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                <button class="navbar-toggler navbar-toggler-right collapsed" type="button" data-toggle="collapse"
                     data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
                     aria-label="Toggle navigation"
                 >
@@ -20,7 +20,7 @@
                          0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"></path>
                     </svg>
                 </button>
-                <div class="collapse navbar-collapse">
+                <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav text-uppercase ml-auto" v-if="name">
                         <li class="nav-item" v-for="link in links">
                             <router-link class="nav-link js-scroll-trigger" :to="link.href">{{ link.title }}</router-link>
