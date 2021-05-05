@@ -28,12 +28,12 @@ class ImageRepository
         if ($user->hasRole('admin')) {
             $images = DB::table('images')
                 ->where('status', '=', 'approved')
-                ->simplePaginate(10);
+                ->paginate(9);
         } else {
             $images = DB::table('images')
                 ->where('user_id', '=', $user->id)
                 ->where('status', '=', 'approved')
-                ->simplePaginate(10);
+                ->paginate(9);
         }
 
         return $images;
@@ -48,12 +48,12 @@ class ImageRepository
         if ($user->hasRole('admin')) {
             $images = DB::table('images')
                 ->where('status', '=', 'declined')
-                ->simplePaginate(10);
+                ->paginate(9);
         } else {
             $images = DB::table('images')
                 ->where('user_id', '=', $user->id)
                 ->where('status', '=', 'declined')
-                ->simplePaginate(10);
+                ->paginate(9);
         }
 
         return $images;
@@ -68,15 +68,20 @@ class ImageRepository
         if ($user->hasRole('admin')) {
             $images = DB::table('images')
                 ->where('status', '=', 'moderation')
-                ->simplePaginate(10);
+                ->paginate(9);
         } else {
             $images = DB::table('images')
                 ->where('user_id', '=', $user->id)
                 ->where('status', '=', 'moderation')
-                ->simplePaginate(10);
+                ->paginate(9);
         }
 
         return $images;
+    }
+
+    public function getImagesByCategoryId($id)
+    {
+        return Image::where('category_id', $id)->where('status', 'approved')->orderByDesc('created_at')->paginate(9);
     }
 
     /**

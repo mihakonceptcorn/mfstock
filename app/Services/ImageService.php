@@ -67,14 +67,18 @@ class ImageService
      */
     public function getImagesByContributorId(int $id)
     {
-        return User::with(['images' => function ($query) {
-            return $query->where('status', '=', 'approved');
-        }])->find($id);
+        $user = User::find($id);
+
+        return $this->imageRepository->getApprovedImagesByUser($user);
     }
 
+    /**
+     * @param $id
+     * @return mixed
+     */
     public function getImagesByCategoryId($id)
     {
-        return Image::where('category_id', $id)->where('status', 'approved')->orderByDesc('created_at')->paginate(9);
+        return $this->imageRepository->getImagesByCategoryId($id);
     }
 
     /**

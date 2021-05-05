@@ -34,6 +34,15 @@ class CategoryService
     }
 
     /**
+     * @param $id
+     * @return mixed
+     */
+    public function getCategoryById($id)
+    {
+        return $this->categoryRepository->getCategoryById($id);
+    }
+
+    /**
      * @param CategoryRequest $request
      */
     public function createCategory(CategoryRequest $request)
@@ -41,6 +50,10 @@ class CategoryService
         $this->categoryRepository->createCategory($request);
     }
 
+    /**
+     * @param CategoryRequest $request
+     * @param Category $category
+     */
     public function updateCategory(CategoryRequest $request, Category $category)
     {
         $this->categoryRepository->updateCategory($request, $category);

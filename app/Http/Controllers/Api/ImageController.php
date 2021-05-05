@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Image;
+use App\Models\Category;
+use App\Services\CategoryService;
 use App\Services\ImageService;
 
 class ImageController extends Controller
@@ -13,9 +14,15 @@ class ImageController extends Controller
      */
     private $imageService;
 
-    public function __construct(ImageService $imageService)
+    /**
+     * @var ImageService
+     */
+    private $categoryService;
+
+    public function __construct(ImageService $imageService, CategoryService $categoryService)
     {
         $this->imageService = $imageService;
+        $this->categoryService = $categoryService;
     }
 
     /**
@@ -26,8 +33,15 @@ class ImageController extends Controller
         return $this->imageService->getImageById($id);
     }
 
+    /**
+     * @param $id
+     * @return array
+     */
     public function getImagesByCategoryId($id)
     {
-        return $this->imageService->getImagesByCategoryId($id);
+        $category = $this->categoryService->getCategoryById($id);
+        $images = $this->imageService->getImagesByCategoryId($id);
+
+        return array_merge($category->toArray(), $images->toArray());
     }
 }

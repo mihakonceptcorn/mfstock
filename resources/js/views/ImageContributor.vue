@@ -1,12 +1,16 @@
 <template>
     <div>
         <div class="text-center">
-            <h2 class="section-heading text-uppercase">{{ contributor.name }}'s images</h2>
+            <h2 v-if="loading" class="section-heading text-uppercase">images</h2>
+            <h2 v-else class="section-heading text-uppercase">{{ contributorData.name }}'s images</h2>
         </div>
         <spin v-if="loading"></spin>
         <div class="row" v-else>
-            <stock-image v-for="stock_image in contributor.images" :title="stock_image.title" :imagePath="stock_image.path"
+            <stock-image v-for="stock_image in contributorData.data" :title="stock_image.title" :imagePath="stock_image.path"
                          :key="stock_image.id" :id="stock_image.id"/>
+        </div>
+        <div class="row">
+            <pagination :data="contributorData" @pagination-change-page="getResultsWithPaginate"></pagination>
         </div>
     </div>
 </template>
@@ -24,24 +28,21 @@
             return {
                 loading: true,
                 not_found: false,
-                contributor: [],
+                contributorData: {},
+                id: this.$route.params.id,
             }
         },
         mounted() {
-            this.loadImagesByContributorId(this.$route.params.id);
+            this.getResultsWithPaginate();
         },
         methods: {
-            loadImagesByContributorId(id) {
-                axios.get('/api/contributor/' + id)
+            getResultsWithPaginate(page = 1) {
+                axios.get('/api/contributor/' + this.id + '?page=' + page)
                     .then(response => {
-                        this.contributor = response.data;
-                        this.loading = false;
-                    })
-                    .catch(error => {
-                        this.not_found = true;
+                        this.contributorData = response.data;
                         this.loading = false;
                     });
-            }
+            },
         }
     }
 </script>

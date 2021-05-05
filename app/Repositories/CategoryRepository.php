@@ -29,6 +29,15 @@ class CategoryRepository
     }
 
     /**
+     * @param $id
+     * @return mixed
+     */
+    public function getCategoryById($id)
+    {
+        return $this->category::find($id);
+    }
+
+    /**
      * @param CategoryRequest $request
      */
     public function createCategory(CategoryRequest $request)

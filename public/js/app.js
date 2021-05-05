@@ -2166,6 +2166,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 
 
@@ -2178,13 +2180,11 @@ __webpack_require__.r(__webpack_exports__);
     return {
       loading: true,
       not_found: false,
-      category: [],
       categoryData: {},
       id: this.$route.params.id
     };
   },
   mounted: function mounted() {
-    //this.loadImagesByCategoryId(this.$route.params.id);
     this.getResultsWithPaginate();
   },
   methods: {
@@ -2194,6 +2194,7 @@ __webpack_require__.r(__webpack_exports__);
       var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
       axios__WEBPACK_IMPORTED_MODULE_1___default().get('/api/category/' + this.id + '?page=' + page).then(function (response) {
         _this.categoryData = response.data;
+        console.log(_this.categoryData);
         _this.loading = false;
       });
     }
@@ -2230,6 +2231,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -2242,21 +2247,20 @@ __webpack_require__.r(__webpack_exports__);
     return {
       loading: true,
       not_found: false,
-      contributor: []
+      contributorData: {},
+      id: this.$route.params.id
     };
   },
   mounted: function mounted() {
-    this.loadImagesByContributorId(this.$route.params.id);
+    this.getResultsWithPaginate();
   },
   methods: {
-    loadImagesByContributorId: function loadImagesByContributorId(id) {
+    getResultsWithPaginate: function getResultsWithPaginate() {
       var _this = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_1___default().get('/api/contributor/' + id).then(function (response) {
-        _this.contributor = response.data;
-        _this.loading = false;
-      })["catch"](function (error) {
-        _this.not_found = true;
+      var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
+      axios__WEBPACK_IMPORTED_MODULE_1___default().get('/api/contributor/' + this.id + '?page=' + page).then(function (response) {
+        _this.contributorData = response.data;
         _this.loading = false;
       });
     }
@@ -39915,7 +39919,7 @@ var render = function() {
               _vm._v("Category:")
             ])
           : _c("h2", { staticClass: "section-heading text-uppercase" }, [
-              _vm._v("Category: BLA")
+              _vm._v("Category: " + _vm._s(_vm.categoryData.title))
             ])
       ]),
       _vm._v(" "),
@@ -39924,25 +39928,30 @@ var render = function() {
         : _c(
             "div",
             { staticClass: "row" },
-            [
-              _vm._l(_vm.categoryData.data, function(stock_image) {
-                return _c("stock-image", {
-                  key: stock_image.id,
-                  attrs: {
-                    title: stock_image.title,
-                    imagePath: stock_image.path,
-                    id: stock_image.id
-                  }
-                })
-              }),
-              _vm._v(" "),
-              _c("pagination", {
-                attrs: { data: _vm.categoryData },
-                on: { "pagination-change-page": _vm.getResultsWithPaginate }
+            _vm._l(_vm.categoryData.data, function(stock_image) {
+              return _c("stock-image", {
+                key: stock_image.id,
+                attrs: {
+                  title: stock_image.title,
+                  imagePath: stock_image.path,
+                  id: stock_image.id
+                }
               })
-            ],
-            2
-          )
+            }),
+            1
+          ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "row" },
+        [
+          _c("pagination", {
+            attrs: { data: _vm.categoryData },
+            on: { "pagination-change-page": _vm.getResultsWithPaginate }
+          })
+        ],
+        1
+      )
     ],
     1
   )
@@ -39974,9 +39983,13 @@ var render = function() {
     "div",
     [
       _c("div", { staticClass: "text-center" }, [
-        _c("h2", { staticClass: "section-heading text-uppercase" }, [
-          _vm._v(_vm._s(_vm.contributor.name) + "'s images")
-        ])
+        _vm.loading
+          ? _c("h2", { staticClass: "section-heading text-uppercase" }, [
+              _vm._v("images")
+            ])
+          : _c("h2", { staticClass: "section-heading text-uppercase" }, [
+              _vm._v(_vm._s(_vm.contributorData.name) + "'s images")
+            ])
       ]),
       _vm._v(" "),
       _vm.loading
@@ -39984,7 +39997,7 @@ var render = function() {
         : _c(
             "div",
             { staticClass: "row" },
-            _vm._l(_vm.contributor.images, function(stock_image) {
+            _vm._l(_vm.contributorData.data, function(stock_image) {
               return _c("stock-image", {
                 key: stock_image.id,
                 attrs: {
@@ -39995,7 +40008,19 @@ var render = function() {
               })
             }),
             1
-          )
+          ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "row" },
+        [
+          _c("pagination", {
+            attrs: { data: _vm.contributorData },
+            on: { "pagination-change-page": _vm.getResultsWithPaginate }
+          })
+        ],
+        1
+      )
     ],
     1
   )
