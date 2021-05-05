@@ -28,12 +28,12 @@ class ImageRepository
         if ($user->hasRole('admin')) {
             $images = DB::table('images')
                 ->where('status', '=', 'approved')
-                ->get();
+                ->simplePaginate(10);
         } else {
             $images = DB::table('images')
                 ->where('user_id', '=', $user->id)
                 ->where('status', '=', 'approved')
-                ->get();
+                ->simplePaginate(10);
         }
 
         return $images;
@@ -48,12 +48,12 @@ class ImageRepository
         if ($user->hasRole('admin')) {
             $images = DB::table('images')
                 ->where('status', '=', 'declined')
-                ->get();
+                ->simplePaginate(10);
         } else {
             $images = DB::table('images')
                 ->where('user_id', '=', $user->id)
                 ->where('status', '=', 'declined')
-                ->get();
+                ->simplePaginate(10);
         }
 
         return $images;
@@ -68,12 +68,12 @@ class ImageRepository
         if ($user->hasRole('admin')) {
             $images = DB::table('images')
                 ->where('status', '=', 'moderation')
-                ->get();
+                ->simplePaginate(10);
         } else {
             $images = DB::table('images')
                 ->where('user_id', '=', $user->id)
                 ->where('status', '=', 'moderation')
-                ->get();
+                ->simplePaginate(10);
         }
 
         return $images;

@@ -82,8 +82,12 @@
                         </tbody>
                     </table>
                 </div>
-                <!-- /.card-body -->
             </div>
-        </div><!-- /.container-fluid -->
+            <hr class="mb-2">
+            <div class="card-body">
+                {{ $images->links() }}
+            </div>
+            <hr class="mb-0">
+        </div>
     </section>
 @endsection

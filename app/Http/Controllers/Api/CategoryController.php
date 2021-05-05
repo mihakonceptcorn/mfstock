@@ -22,10 +22,4 @@ class CategoryController extends Controller
     {
         return  $this->categoryService->getAllCategories();
     }
-
-
-    public function getImagesByCategoryId($id)
-    {
-        return $this->categoryService->getImagesByCategoryId($id);
-    }
 }

@@ -25,4 +25,9 @@ class ImageController extends Controller
     public function getImageById(int $id) {
         return $this->imageService->getImageById($id);
     }
+
+    public function getImagesByCategoryId($id)
+    {
+        return $this->imageService->getImagesByCategoryId($id);
+    }
 }

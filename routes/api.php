@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/categories', [CategoryController::class, 'index']);
-Route::get('/category/{id}', [CategoryController::class, 'getImagesByCategoryId']);
+Route::get('/category/{id}', [ImageController::class, 'getImagesByCategoryId']);
 Route::get('/contributor/{id}', [ContributorController::class, 'getImagesByContributorId']);
 Route::get('/image/{id}', [ImageController::class, 'getImageById']);
 Route::post('/buy', [OrderController::class, 'buyImage']);

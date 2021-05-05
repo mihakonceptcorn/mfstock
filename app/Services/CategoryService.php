@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Http\Requests\CategoryRequest;
 use App\Http\Requests\ImageRequest;
 use App\Models\Category;
+use App\Models\Image;
 use App\Repositories\CategoryRepository;
 use Illuminate\Support\Collection;
 
@@ -30,11 +31,6 @@ class CategoryService
     public function getAllCategories()
     {
         return $this->categoryRepository->getAllCategories();
-    }
-
-    public function getImagesByCategoryId(int $id)
-    {
-        return Category::with('images')->orderByDesc('created_at')->find($id);
     }
 
     /**
