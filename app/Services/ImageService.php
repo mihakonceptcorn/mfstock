@@ -6,6 +6,7 @@ use App\Http\Requests\ImageRequest;
 use App\Models\Image;
 use App\Models\User;
 use App\Repositories\ImageRepository;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,7 +23,7 @@ class ImageService
     }
 
     /**
-     * @return Collection
+     * @return LengthAwarePaginator
      */
     public function getApprovedImages()
     {
@@ -32,7 +33,7 @@ class ImageService
     }
 
     /**
-     * @return Collection
+     * @return LengthAwarePaginator
      */
     public function getDeclinedImages()
     {
@@ -42,7 +43,7 @@ class ImageService
     }
 
     /**
-     * @return Collection
+     * @return LengthAwarePaginator
      */
     public function getModerationImages()
     {
@@ -52,7 +53,7 @@ class ImageService
     }
 
     /**
-     * @return Collection
+     * @return LengthAwarePaginator
      */
     public function getBoughtImages()
     {
@@ -63,7 +64,7 @@ class ImageService
 
     /**
      * @param int $id
-     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null
+     * @return LengthAwarePaginator
      */
     public function getImagesByContributorId(int $id)
     {
@@ -116,5 +117,14 @@ class ImageService
     public function getImageById(int $id)
     {
         return Image::with('user')->find($id);
+    }
+
+    /**
+     * @param $keyword
+     * @return Collection
+     */
+    public function search($keyword)
+    {
+        return $this->imageRepository->search($keyword);
     }
 }

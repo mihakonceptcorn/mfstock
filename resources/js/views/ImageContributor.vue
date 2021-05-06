@@ -27,7 +27,6 @@
         data() {
             return {
                 loading: true,
-                not_found: false,
                 contributorData: {},
                 id: this.$route.params.id,
             }

@@ -72,19 +72,19 @@
         mounted() {
             this.userId = this.$userId;
             this.userRoles = this.$userRoles;
-            this.loadImageById(this.$route.params.id);
+            this.loadImageById();
             this.checkCustomerUser();
         },
         methods: {
             checkCustomerUser() {
-                if (null !== this.userId) {
+                if (null != this.userId  && this.userId.length) {
                     if (this.userRoles.includes('customer')) {
                         this.isCustomer = true;
                     }
                 }
             },
-            loadImageById(id) {
-                axios.get('/api/image/' + id)
+            loadImageById() {
+                axios.get('/api/image/' + this.$route.params.id)
                     .then(response => {
                         this.image_single = response.data;
                         this.loading = false;

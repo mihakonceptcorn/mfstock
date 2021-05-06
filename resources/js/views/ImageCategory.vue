@@ -40,7 +40,6 @@
                 axios.get('/api/category/' + this.id + '?page=' + page)
                     .then(response => {
                         this.categoryData = response.data;
-                        console.log(this.categoryData);
                         this.loading = false;
                     });
             },

@@ -53,10 +53,12 @@
             <div class="container">
                 <div class="masthead-subheading">Welcome To MfStock!</div>
                 <div class="row justify-content-center">
-                    <form class="d-flex col-md-5">
-                        <input class="form-control me-2 mr-1" type="search" placeholder="Search images" aria-label="Search">
-                        <button class="btn btn-primary" type="submit">Search</button>
-                    </form>
+                    <div class="d-flex col-md-5">
+                        <input class="form-control me-2 mr-1" placeholder="Search images" v-model="searchKeys">
+                        <a @click="handleClick(searchKeys)" class="btn btn-primary">
+                            Search
+                        </a>
+                    </div>
                 </div>
 
             </div>
@@ -76,13 +78,18 @@
                         href: '/'
                     },
                 ],
-                name: false
+                name: false,
+                searchKeys: '',
             }
         },
         mounted() {
             this.setName();
         },
         methods: {
+            handleClick (searchKeys) {
+                this.$router.push({ name: 'search', query: { keywords: searchKeys }});
+                window.location.reload();
+            },
             setName() {
                 if (null != this.$userName)
                 {

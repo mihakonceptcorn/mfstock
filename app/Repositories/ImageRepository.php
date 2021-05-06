@@ -7,6 +7,7 @@ namespace App\Repositories;
 use App\Http\Requests\ImageRequest;
 use App\Models\Image;
 use App\Models\User;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 
@@ -21,7 +22,7 @@ class ImageRepository
 
     /**
      * @param User $user
-     * @return Collection
+     * @return LengthAwarePaginator
      */
     public function getApprovedImagesByUser(User $user)
     {
@@ -41,7 +42,7 @@ class ImageRepository
 
     /**
      * @param User $user
-     * @return Collection
+     * @return LengthAwarePaginator
      */
     public function getDeclinedImagesByUser(User $user)
     {
@@ -61,7 +62,7 @@ class ImageRepository
 
     /**
      * @param User $user
-     * @return Collection
+     * @return LengthAwarePaginator
      */
     public function getModerationImagesByUser(User $user)
     {
@@ -86,11 +87,11 @@ class ImageRepository
 
     /**
      * @param User $user
-     * @return Collection
+     * @return LengthAwarePaginator
      */
     public function getBoughtImages(User $user)
     {
-        return $user->boughtImages;
+        return $user->boughtImages()->paginate(9);
     }
 
     public function createImage(User $user, ImageRequest $request)
@@ -109,5 +110,14 @@ class ImageRepository
         $image->status = 'moderation';
 
         $image->save();
+    }
+
+    /**
+     * @param $keyword
+     * @return Collection
+     */
+    public function search($keyword)
+    {
+        return Image::where('keywords', 'LIKE', '%' . $keyword . '%')->paginate(10);
     }
 }

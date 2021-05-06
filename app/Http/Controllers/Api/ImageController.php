@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
 use App\Services\CategoryService;
 use App\Services\ImageService;
 
@@ -43,5 +42,10 @@ class ImageController extends Controller
         $images = $this->imageService->getImagesByCategoryId($id);
 
         return array_merge($category->toArray(), $images->toArray());
+    }
+
+    public function search($keyword)
+    {
+        return $this->imageService->search($keyword);
     }
 }
