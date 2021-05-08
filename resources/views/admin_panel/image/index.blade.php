@@ -86,7 +86,7 @@
             <hr class="mb-2">
             <div class="card-body">
                 <div class="d-flex justify-content-center">
-                    {!! $images->render() !!}
+                    {!! $images->links() !!}
                 </div>
             </div>
             <hr class="mb-0">

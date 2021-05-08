@@ -33,7 +33,6 @@ class SendOrderEmailJob implements ShouldQueue
      */
     public function handle()
     {
-        logs()->info('email email email email');
         $email = new OrderCompletedMail($this->details);
 
         try {
