@@ -64,6 +64,33 @@ class ImageRepository
      * @param User $user
      * @return LengthAwarePaginator
      */
+    public function getModerationAdminImages(User $user)
+    {
+        $images = DB::table('images')
+            ->where('status', '=', 'moderation')
+            ->paginate(9);
+
+        return $images;
+    }
+
+    /**
+     * @param User $user
+     * @return LengthAwarePaginator
+     */
+    public function getModerationContributorImages(User $user)
+    {
+        $images = DB::table('images')
+            ->where('user_id', '=', $user->id)
+            ->where('status', '=', 'moderation')
+            ->paginate(9);
+
+        return $images;
+    }
+
+    /**
+     * @param User $user
+     * @return LengthAwarePaginator
+     */
     public function getModerationImagesByUser(User $user)
     {
         if ($user->hasRole('admin')) {

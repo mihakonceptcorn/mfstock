@@ -49,7 +49,13 @@ class ImageService
     {
         $user = Auth::user();
 
-        return $this->imageRepository->getModerationImagesByUser($user);
+        if ($user->hasRole('admin')) {
+            $images = $this->imageRepository->getModerationAdminImages($user);
+        } else {
+            $images = $this->imageRepository->getModerationContributorImages($user);
+        }
+
+        return $images;
     }
 
     /**
