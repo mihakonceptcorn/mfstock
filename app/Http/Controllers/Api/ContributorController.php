@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Services\ImageService;
-use Illuminate\Support\Facades\Auth;
 
 class ContributorController extends Controller
 {

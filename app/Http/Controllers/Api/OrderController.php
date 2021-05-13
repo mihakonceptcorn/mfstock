@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Order;
 use App\Services\OrderService;
 use Illuminate\Http\Request;
 
@@ -22,6 +21,10 @@ class OrderController extends Controller
         $this->orderService = $orderService;
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
+     */
     public function buyImage(Request $request)
     {
         $this->orderService->buyImage($request);
