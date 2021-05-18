@@ -11,7 +11,7 @@ class CategoryObserver
      * @param  Category  $category
      * @return void
      */
-    public function creating(Category $category): void
+    public function creating(Category $category)
     {
         $this->setSlug($category);
     }
@@ -20,7 +20,7 @@ class CategoryObserver
      * @param Category $category
      * @return void
      */
-    private function setSlug(Category $category): void
+    private function setSlug(Category $category)
     {
         if (empty($category->slug)) {
             $category->slug = Str::slug($category->title);

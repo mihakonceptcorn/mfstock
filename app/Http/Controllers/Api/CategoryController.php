@@ -11,7 +11,7 @@ class CategoryController extends Controller
     /**
      * @var CategoryService
      */
-    private $categoryService;
+    private CategoryService $categoryService;
 
     /**
      * @param CategoryService $categoryService
@@ -24,7 +24,7 @@ class CategoryController extends Controller
     /**
      * @return Collection
      */
-    public function index()
+    public function index(): Collection
     {
         return  $this->categoryService->getAllCategories();
     }

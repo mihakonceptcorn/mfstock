@@ -7,11 +7,11 @@ use App\Models\Order;
 class OrderRepository
 {
     /**
-     * @param $userId
-     * @param $imageId
-     * @param $status
+     * @param int $userId
+     * @param int $imageId
+     * @param string $status
      */
-    public function createOrder($userId, $imageId, $status)
+    public function createOrder(int $userId, int $imageId, string $status)
     {
         $order = Order::create([
             'user_id' => $userId,

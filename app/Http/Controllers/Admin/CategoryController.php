@@ -6,14 +6,16 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use App\Services\CategoryService;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class CategoryController extends Controller
 {
     /**
      * @var CategoryService
      */
-    private $categoryService;
+    private CategoryService $categoryService;
 
     /**
      * @param CategoryService $categoryService
@@ -24,11 +26,9 @@ class CategoryController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function index()
+    public function index(): View
     {
         $categories = $this->categoryService->getAllCategories();
 
@@ -36,20 +36,16 @@ class CategoryController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function create()
+    public function create(): View
     {
         return view('admin_panel.category.create');
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  CategoryRequest  $request
-     * @return \Illuminate\Http\Response
+     * @param CategoryRequest $request
+     * @return mixed
      */
     public function store(CategoryRequest  $request)
     {
@@ -59,22 +55,18 @@ class CategoryController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
+     * @param Category $category
+     * @return View
      */
-    public function edit(Category $category)
+    public function edit(Category $category): View
     {
         return view('admin_panel.category.edit', compact('category'));
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
+     * @param CategoryRequest $request
+     * @param Category $category
+     * @return mixed
      */
     public function update(CategoryRequest $request, Category $category)
     {
@@ -84,10 +76,8 @@ class CategoryController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
+     * @param Category $category
+     * @return mixed
      */
     public function destroy(Category $category)
     {

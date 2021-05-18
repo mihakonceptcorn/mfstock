@@ -3,9 +3,7 @@
 namespace App\Services;
 
 use App\Http\Requests\CategoryRequest;
-use App\Http\Requests\ImageRequest;
 use App\Models\Category;
-use App\Models\Image;
 use App\Repositories\CategoryRepository;
 use Illuminate\Support\Collection;
 
@@ -14,7 +12,7 @@ class CategoryService
     /**
      * @var CategoryRepository
      */
-    private $categoryRepository;
+    private CategoryRepository $categoryRepository;
 
     /**
      * CategoryService constructor.
@@ -28,7 +26,7 @@ class CategoryService
     /**
      * @return Collection
      */
-    public function getAllCategories()
+    public function getAllCategories(): Collection
     {
         return $this->categoryRepository->getAllCategories();
     }

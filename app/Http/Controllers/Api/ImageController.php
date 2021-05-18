@@ -5,19 +5,25 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Services\CategoryService;
 use App\Services\ImageService;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Model;
 
 class ImageController extends Controller
 {
     /**
      * @var ImageService
      */
-    private $imageService;
+    private ImageService $imageService;
 
     /**
-     * @var ImageService
+     * @var CategoryService
      */
-    private $categoryService;
+    private CategoryService $categoryService;
 
+    /**
+     * @param ImageService $imageService
+     * @param CategoryService $categoryService
+     */
     public function __construct(ImageService $imageService, CategoryService $categoryService)
     {
         $this->imageService = $imageService;
@@ -26,26 +32,22 @@ class ImageController extends Controller
 
     /**
      * @param int $id
-     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null
+     * @return Collection|Model|null
      */
-    public function getImageById(int $id) {
+    public function getImageById(int $id)
+    {
         return $this->imageService->getImageById($id);
     }
 
     /**
-     * @param $id
+     * @param int $id
      * @return array
      */
-    public function getImagesByCategoryId($id)
+    public function getImagesByCategoryId(int $id): array
     {
         $category = $this->categoryService->getCategoryById($id);
         $images = $this->imageService->getImagesByCategoryId($id);
 
         return array_merge($category->toArray(), $images->toArray());
-    }
-
-    public function search($keyword)
-    {
-        return $this->imageService->search($keyword);
     }
 }

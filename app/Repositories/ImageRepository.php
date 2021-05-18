@@ -13,7 +13,10 @@ use Illuminate\Support\Facades\DB;
 
 class ImageRepository
 {
-    private $image;
+    /**
+     * @var Image
+     */
+    private Image $image;
 
     public function __construct(Image $image)
     {
@@ -24,7 +27,7 @@ class ImageRepository
      * @param User $user
      * @return LengthAwarePaginator
      */
-    public function getApprovedImagesByUser(User $user)
+    public function getApprovedImagesByUser(User $user): LengthAwarePaginator
     {
         if ($user->hasRole('admin')) {
             $images = DB::table('images')
@@ -44,7 +47,7 @@ class ImageRepository
      * @param User $user
      * @return LengthAwarePaginator
      */
-    public function getDeclinedImagesByUser(User $user)
+    public function getDeclinedImagesByUser(User $user): LengthAwarePaginator
     {
         if ($user->hasRole('admin')) {
             $images = DB::table('images')
@@ -61,10 +64,9 @@ class ImageRepository
     }
 
     /**
-     * @param User $user
      * @return LengthAwarePaginator
      */
-    public function getModerationAdminImages(User $user)
+    public function getModerationAdminImages(): LengthAwarePaginator
     {
         $images = DB::table('images')
             ->where('status', '=', 'moderation')
@@ -77,7 +79,7 @@ class ImageRepository
      * @param User $user
      * @return LengthAwarePaginator
      */
-    public function getModerationContributorImages(User $user)
+    public function getModerationContributorImages(User $user): LengthAwarePaginator
     {
         $images = DB::table('images')
             ->where('user_id', '=', $user->id)
@@ -87,7 +89,11 @@ class ImageRepository
         return $images;
     }
 
-    public function getImagesByCategoryId($id)
+    /**
+     * @param $id
+     * @return LengthAwarePaginator
+     */
+    public function getImagesByCategoryId($id): LengthAwarePaginator
     {
         return Image::where('category_id', $id)->where('status', 'approved')->orderByDesc('created_at')->paginate(9);
     }
@@ -96,11 +102,15 @@ class ImageRepository
      * @param User $user
      * @return LengthAwarePaginator
      */
-    public function getBoughtImages(User $user)
+    public function getBoughtImages(User $user): LengthAwarePaginator
     {
         return $user->boughtImages()->paginate(9);
     }
 
+    /**
+     * @param User $user
+     * @param ImageRequest $request
+     */
     public function createImage(User $user, ImageRequest $request)
     {
         $directory = 'public/' . strtolower($user->name);
@@ -120,10 +130,10 @@ class ImageRepository
     }
 
     /**
-     * @param $keyword
+     * @param string $keyword
      * @return Collection
      */
-    public function search($keyword)
+    public function search(string $keyword): Collection
     {
         return Image::where('keywords', 'LIKE', '%' . $keyword . '%')->paginate(10);
     }

@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\ContributorController;
 use App\Http\Controllers\Api\ImageController;
 use App\Http\Controllers\Api\OrderController;
 use App\Http\Controllers\Api\RoleController;
+use App\Http\Controllers\Api\SearchController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,4 +25,4 @@ Route::get('/category/{id}', [ImageController::class, 'getImagesByCategoryId']);
 Route::get('/contributor/{id}', [ContributorController::class, 'getImagesByContributorId']);
 Route::get('/image/{id}', [ImageController::class, 'getImageById']);
 Route::post('/buy', [OrderController::class, 'buyImage']);
-Route::get('/search/{keys}', [ImageController::class, 'search']);
+Route::get('/search/{keys}', [SearchController::class, 'index']);

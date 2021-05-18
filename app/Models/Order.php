@@ -12,7 +12,7 @@ class Order extends Model
     public const ORDER_COMPLETED = '1';
 
     /**
-     * @var string[]
+     * @var array
      */
-    protected $fillable = ['user_id', 'image_id', 'status'];
+    protected array $fillable = ['user_id', 'image_id', 'status'];
 }

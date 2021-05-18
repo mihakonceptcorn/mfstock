@@ -16,12 +16,15 @@ class SendOrderEmailJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private $details;
+    /**
+     * @var array
+     */
+    private array $details;
 
     /**
-     * @param $details
+     * @param array $details
      */
-    public function __construct($details)
+    public function __construct(array $details)
     {
         $this->details = $details;
     }

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\Repositories;
-
 
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
@@ -13,7 +11,7 @@ class CategoryRepository
     /**
      * @var Category
      */
-    private $category;
+    private Category $category;
 
     public function __construct(Category $category)
     {
@@ -23,16 +21,16 @@ class CategoryRepository
     /**
      * @return Collection
      */
-    public function getAllCategories()
+    public function getAllCategories(): Collection
     {
        return $this->category::orderBy('title')->get();
     }
 
     /**
-     * @param $id
+     * @param int $id
      * @return mixed
      */
-    public function getCategoryById($id)
+    public function getCategoryById(int $id)
     {
         return $this->category::find($id);
     }

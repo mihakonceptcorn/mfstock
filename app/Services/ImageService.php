@@ -15,7 +15,7 @@ class ImageService
     /**
      * @var ImageRepository
      */
-    private $imageRepository;
+    private ImageRepository $imageRepository;
 
     public function __construct(ImageRepository $imageRepository)
     {
@@ -25,7 +25,7 @@ class ImageService
     /**
      * @return LengthAwarePaginator
      */
-    public function getApprovedImages()
+    public function getApprovedImages(): LengthAwarePaginator
     {
         $user = Auth::user();
 
@@ -35,7 +35,7 @@ class ImageService
     /**
      * @return LengthAwarePaginator
      */
-    public function getDeclinedImages()
+    public function getDeclinedImages(): LengthAwarePaginator
     {
         $user = Auth::user();
 
@@ -45,12 +45,12 @@ class ImageService
     /**
      * @return LengthAwarePaginator
      */
-    public function getModerationImages()
+    public function getModerationImages(): LengthAwarePaginator
     {
         $user = Auth::user();
 
         if ($user->hasRole('admin')) {
-            $images = $this->imageRepository->getModerationAdminImages($user);
+            $images = $this->imageRepository->getModerationAdminImages();
         } else {
             $images = $this->imageRepository->getModerationContributorImages($user);
         }
@@ -61,7 +61,7 @@ class ImageService
     /**
      * @return LengthAwarePaginator
      */
-    public function getBoughtImages()
+    public function getBoughtImages(): LengthAwarePaginator
     {
         $customer = Auth::user();
 
@@ -72,7 +72,7 @@ class ImageService
      * @param int $id
      * @return LengthAwarePaginator
      */
-    public function getImagesByContributorId(int $id)
+    public function getImagesByContributorId(int $id): LengthAwarePaginator
     {
         $user = User::find($id);
 
@@ -80,10 +80,10 @@ class ImageService
     }
 
     /**
-     * @param $id
+     * @param int $id
      * @return mixed
      */
-    public function getImagesByCategoryId($id)
+    public function getImagesByCategoryId(int $id)
     {
         return $this->imageRepository->getImagesByCategoryId($id);
     }
@@ -129,7 +129,7 @@ class ImageService
      * @param $keyword
      * @return Collection
      */
-    public function search($keyword)
+    public function search($keyword): Collection
     {
         return $this->imageRepository->search($keyword);
     }

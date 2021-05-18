@@ -11,7 +11,7 @@ class ContributorController extends Controller
     /**
      * @var ImageService
      */
-    private $imageService;
+    private ImageService $imageService;
 
     /**
      * @param ImageService $imageService
@@ -22,10 +22,10 @@ class ContributorController extends Controller
     }
 
     /**
-     * @param $id
-     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model|null
+     * @param int $id
+     * @return array
      */
-    public function getImagesByContributorId($id)
+    public function getImagesByContributorId(int $id): array
     {
         $user = User::find($id);
         $images = $this->imageService->getImagesByContributorId($id);

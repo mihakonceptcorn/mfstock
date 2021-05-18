@@ -7,6 +7,8 @@ use App\Http\Requests\ImageRequest;
 use App\Models\Image;
 use App\Services\CategoryService;
 use App\Services\ImageService;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 
 class ImageController extends Controller
@@ -14,12 +16,12 @@ class ImageController extends Controller
     /**
      * @var ImageService
      */
-    private $imageService;
+    private ImageService $imageService;
 
     /**
      * @var CategoryService
      */
-    private $categoryService;
+    private CategoryService $categoryService;
 
     /**
      * @param ImageService $imageService
@@ -32,11 +34,9 @@ class ImageController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function index()
+    public function index(): View
     {
         $user = Auth::user();
 
@@ -46,11 +46,9 @@ class ImageController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function moderation()
+    public function moderation(): View
     {
         $images = $this->imageService->getModerationImages();
 
@@ -58,11 +56,9 @@ class ImageController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function approved()
+    public function approved(): View
     {
         $images = $this->imageService->getApprovedImages();
 
@@ -70,31 +66,29 @@ class ImageController extends Controller
     }
 
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function declined()
+    public function declined(): View
     {
         $images = $this->imageService->getDeclinedImages();
 
         return view('admin_panel.image.index', compact('images'));
     }
 
-    public function completed()
+    /**
+     * @return View
+     */
+    public function completed(): View
     {
         $images = $this->imageService->getBoughtImages();
 
         return view('admin_panel.image.index', compact('images'));
     }
 
-
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function create()
+    public function create(): View
     {
         $categories = $this->categoryService->getAllCategories();
 
@@ -103,9 +97,9 @@ class ImageController extends Controller
 
     /**
      * @param Image $image
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function approve(Image $image)
+    public function approve(Image $image): RedirectResponse
     {
         $this->imageService->approveImage($image);
 
@@ -114,9 +108,9 @@ class ImageController extends Controller
 
     /**
      * @param Image $image
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
-    public function decline(Image $image)
+    public function decline(Image $image): RedirectResponse
     {
         $this->imageService->declineImage($image);
 
@@ -124,12 +118,10 @@ class ImageController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
      * @param  ImageRequest  $request
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
-    public function store(ImageRequest $request)
+    public function store(ImageRequest $request): RedirectResponse
     {
         $this->imageService->createImage($request);
 

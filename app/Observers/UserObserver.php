@@ -11,7 +11,7 @@ class UserObserver
      * @param User $user
      * @return void
      */
-    public function creating(User $user): void
+    public function creating(User $user)
     {
         $this->setSlug($user);
     }
@@ -20,7 +20,7 @@ class UserObserver
      * @param User $user
      * @return void
      */
-    private function setSlug(User $user): void
+    private function setSlug(User $user)
     {
         if (empty($user->slug)) {
             $user->slug = Str::slug($user->name);

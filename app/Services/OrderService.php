@@ -17,7 +17,7 @@ class OrderService
     /**
      * @var OrderRepository
      */
-    private $orderRepository;
+    private OrderRepository $orderRepository;
 
     public function __construct(OrderRepository $orderRepository)
     {
